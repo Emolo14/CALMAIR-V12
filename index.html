@@ -5,11 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>CalmAir</title>
   <style>
-    html, body { margin:0; height:100%; background:#F6D466; }
-    body { overflow:hidden; }
-    canvas { display:block; width:100vw !important; height:100vh !important; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #F6D466;
+      overflow: hidden;
+    }
+    canvas {
+      display: block;
+      width: 100vw !important;
+      height: 100vh !important;
+    }
   </style>
+
+  <!-- p5.js (grundbibliotek) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.3/p5.min.js"></script>
+  <!-- 🔊 p5.sound (nødvendigt for mikrofonen) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.3/addons/p5.sound.min.js"></script>
+
+  <!-- din kode -->
   <script defer src="sketch.js"></script>
 </head>
 <body></body>
