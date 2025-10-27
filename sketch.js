@@ -47,4 +47,58 @@ function draw() {
   const leftCX = width * 0.25;
   const leftCY = R + topH * 0.10;             // fast: lidt margin fra top
 
-  drawGauge(leftCX, leftCY, R, dB)
+  drawGauge(leftCX, leftCY, R, dB);
+
+  // Labels under viseren (flytter naturligt med centeret)
+  fill(255); textStyle(BOLD);
+  textSize(R * 0.17);
+  text('dB', leftCX, leftCY + R * 0.22);
+  textSize(R * 0.18);
+  text(int(dB) + ' dB', leftCX, leftCY + R * 0.40);
+
+  // -------- Højre: smiley --------
+  const rightCX = width * 0.75;
+  const rightCY = topH * 0.50;
+  const dia = min(width/2, topH) * 0.78;
+  drawSmiley(rightCX, rightCY, dia);
+
+  // -------- Nederst: grøn bar --------
+  noStroke(); fill('#22A95B');
+  rect(0, topH, width/2, bottomH);
+  rect(width/2, topH, width/2, bottomH);
+
+  fill(255); textStyle(BOLD);
+  textSize(bottomH * 0.58);
+  text(aktiv ? 'Stop' : 'Start', width * 0.25, topH + bottomH/2);
+  text(int(co2) + ' ppm',       width * 0.75, topH + bottomH/2);
+
+  // Alarm
+  if (dB > 85 && aktiv && !alarmSpillet) {
+    alarmLyd(); alarmSpillet = true; alarmTimer = millis();
+  } else if (dB <= 85) alarmSpillet = false;
+
+  if (millis() - alarmTimer < 1500) {
+    fill(0,0,0,160); textSize(height*0.055);
+    text('Lyden er for høj!', width/2, topH * 0.12);
+  }
+}
+
+// ---------- Tegn gauge ----------
+function drawGauge(cx, cy, R, dB) {
+  push(); translate(cx, cy);
+
+  const segs = ['#2EBF6B','#6CD06A','#B7DB5E','#F4D046','#F79A3A','#F04A3A'];
+  const arcW = R * 0.16;
+  const d = (R*2 - arcW);
+
+  strokeWeight(arcW); noFill(); strokeCap(SQUARE);
+  let a0 = -180;
+  for (let i=0;i<segs.length;i++){
+    const a1 = lerp(-180, 0, (i+1)/segs.length);
+    stroke(segs[i]);
+    arc(0, 0, d, d, a0, a1);
+    a0 = a1;
+  }
+
+  // VISER
+  const theta = map(dB, 30, 100, -180, 0, t
