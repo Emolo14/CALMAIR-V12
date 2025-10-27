@@ -98,7 +98,7 @@ function drawGauge(cx, cy, R, dB) {
   strokeWeight(arcW); noFill(); strokeCap(SQUARE);
   let a0 = -180;
   for (let i = 0; i < segs.length; i++) {
-    const a1 = lerp(-180, 0, (i + 1) / se gs.length);
+    const a1 = lerp(-180, 0, (i + 1) / segs.length);
     stroke(segs[i]); arc(0, 0, d, d, a0, a1);
     a0 = a1;
   }
